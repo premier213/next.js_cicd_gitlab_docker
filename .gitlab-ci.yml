@@ -1,0 +1,14 @@
+stages:
+  - deploy
+cache:
+  paths:
+    - node_modules/
+deploy:
+  image: docker:dind
+  stage: deploy
+  script:
+    - docker-compose up --build -d && docker image prune -af
+  tags:
+    - docker
+  only:
+    - master
